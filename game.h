@@ -13,15 +13,29 @@
 #include <string>
 
 class Game {
-private:
+protected:
     Player player_;
 
 public:
+//get player
+    Player& getPlayer() {return player_;}
+//mian game 
     Game();  // constructor to set up the player
     void start(); // main game loop
-    void showMenu(); // display menu options
+//fight stuff
     void fightSlime(); // handle slime battle
-    void goToTower(); // placeholder for future content
+    void fightVariant(); // handle tower guard battle
+//exploration stuff
+    void explorePlains(int choice); // handle plains exploration
+    void exploreTower(int choice); // handle tower exploration
+
+//reader and safeFile writer.
+    bool saveGame(const std::string& filename, Player& player); // save game state to file
+    bool loadGame(const std::string& filename, Player& player); // load game state from file
+    static bool parseAndLoadLine(const std::string& line, const std::string& wantedName, Player& player);
+    static bool createSaveFileWithPlayer(const std::string& filename, const Player& player);
+    static bool appendOrUpdatePlayer(const std::string& filename, const Player& player);
+
 };
 
 #endif

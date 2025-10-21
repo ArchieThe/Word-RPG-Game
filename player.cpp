@@ -14,12 +14,20 @@ Player::Player(std::string name):
     gold_(0){}
 
 //getters
-std::string Player::getName() {return name_;}
-int Player::getHp() {return hp_;}
-int Player::getMaxHp() {return max_hp_;}
-int Player::getAtk() {return atk_;}
-int Player::getDef() {return def_;}
-int Player::getGold() {return gold_;}
+std::string Player::getName() const {return name_;}
+int Player::getHp() const {return hp_;}
+int Player::getMaxHp() const {return max_hp_;}
+int Player::getAtk() const {return atk_;}
+int Player::getDef() const {return def_;}
+int Player::getGold() const {return gold_;}
+void Player::getStats() const {
+    std::cout << "Player Stats:\n";
+    std::cout << "Name: " << name_ << "\n";
+    std::cout << "HP: " << hp_ << "/" << max_hp_ << "\n";
+    std::cout << "ATK: " << atk_ << "\n";
+    std::cout << "DEF: " << def_ << "\n";
+    std::cout << "Gold: " << gold_ << "\n";
+}
 
 //setters 
 void Player::setName(const std::string& name) {name_ = name;}

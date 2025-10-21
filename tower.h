@@ -1,3 +1,5 @@
+#ifndef TOWER_H
+#define TOWER_H
 #include "iostream"
 #include "areas.h"
 
@@ -7,3 +9,5 @@ public:
     bool enter();
     bool exit();
 };
+
+#endif

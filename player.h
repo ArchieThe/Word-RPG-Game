@@ -19,12 +19,13 @@ public:
     Player();
     Player(std::string name);
 // getters
-    std::string getName();
-    int getHp();
-    int getMaxHp();
-    int getAtk();
-    int getDef();
-    int getGold();
+    std::string getName() const;
+    int getHp() const;
+    int getMaxHp() const;
+    int getAtk() const;
+    int getDef() const;
+    int getGold() const;
+    void getStats() const;
 // setters
     void setName(const std::string& name);
     void setHp(int hp);

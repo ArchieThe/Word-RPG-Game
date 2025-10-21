@@ -10,6 +10,7 @@
 #include "areas.h"
 #include "plains.h"
 #include "tower.h"
+#include "game.h"
 
 int main() {
 
@@ -87,7 +88,19 @@ int main() {
     assert (towerArea.enter() == true);
     assert (towerArea.exit() == false);
 
+
+//testing Game save/load functions
+    Game game; //input Bobby when prompted
+    assert(game.getPlayer().getName() == "Bobby");
+    assert(game.getPlayer().getAtk() == 100);
+
+    game.getPlayer().setAtk(25);
+    game.getPlayer().setName("Holo");
+    assert(game.getPlayer().getAtk() == 25);
+    game.saveGame("savefile.txt", game.getPlayer());
+
     std::cout << "All tests passed!\n";
 
     return 0;
 }
+
