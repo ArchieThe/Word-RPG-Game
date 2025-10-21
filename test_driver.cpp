@@ -97,7 +97,7 @@ int main() {
     game.getPlayer().setAtk(25);
     game.getPlayer().setName("Holo");
     assert(game.getPlayer().getAtk() == 25);
-    game.saveGame("savefile.txt", game.getPlayer());
+    game.appendOrUpdatePlayer("savefile.txt", game.getPlayer());
 
     std::cout << "All tests passed!\n";
 

@@ -85,7 +85,7 @@ bool Game::createSaveFileWithPlayer(const std::string& filename, const Player& p
 
 // Overwrite or append helpers (optional)
 bool Game::appendOrUpdatePlayer(const std::string& filename, const Player& player){
-    // Simple approach: read all, replace line for this name if found, else append; then rewrite file.
+    //read all, replace line for this name if found, else append; then rewrite file.
     std::ifstream in(filename);
     std::vector<std::string> lines;
     bool replaced = false;
@@ -164,65 +164,3 @@ bool Game::loadGame(const std::string& filename, Player& player){
     }
 }
 
-
-
-
-// Save player data to file
-bool Game::saveGame(const std::string& filename, Player& player){
-    std::ifstream inFile(filename);
-    std::vector<std::string> lines;
-    bool found = false;
-
-    if (inFile.is_open()) {
-        std::string line;
-        while (std::getline(inFile, line)) {
-            std::size_t commaPos = line.find(',');
-            if (commaPos != std::string::npos) {
-                std::string name = line.substr(0, commaPos);
-                if (name == player.getName()) {
-                    // Replace this line with updated stats
-                    std::ostringstream newLine;
-                    newLine << player.getName() << ","
-                            << player.getHp() << ":"
-                            << player.getMaxHp() << ":"
-                            << player.getAtk() << ":"
-                            << player.getDef() << ":"
-                            << player.getGold();
-                    lines.push_back(newLine.str());
-                    found = true;
-                } else {
-                    lines.push_back(line);
-                }
-            } else {
-                lines.push_back(line); // malformed line, keep as is
-            }
-        }
-        inFile.close();
-    }
-      // If player not found, append new line
-    if (!found) {
-        std::ostringstream newLine;
-        newLine << player.getName() << ","
-                << player.getHp() << ":"
-                << player.getMaxHp() << ":"
-                << player.getAtk() << ":"
-                << player.getDef() << ":"
-                << player.getGold();
-        lines.push_back(newLine.str());
-    }
-
-    // Write everything back to the file
-    std::ofstream outFile(filename, std::ios::trunc);
-    if (!outFile.is_open()) {
-        std::cout << "Error: could not open " << filename << " for writing.\n";
-        return false;
-    }
-
-    for (const auto& line : lines) {
-        outFile << line << "\n";
-    }
-
-    outFile.close();
-    std::cout << "Game saved successfully for " << player.getName() << ".\n";
-    return true;
-}

@@ -30,7 +30,6 @@ public:
     void exploreTower(int choice); // handle tower exploration
 
 //reader and safeFile writer.
-    bool saveGame(const std::string& filename, Player& player); // save game state to file
     bool loadGame(const std::string& filename, Player& player); // load game state from file
     static bool parseAndLoadLine(const std::string& line, const std::string& wantedName, Player& player);
     static bool createSaveFileWithPlayer(const std::string& filename, const Player& player);
