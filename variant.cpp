@@ -53,19 +53,19 @@ void Variant::set_def(int def) {
 
 
 //attack method where da variant attacks player and player attacks variant
-Player* Variant::attack(Player* Player) {
-    int player_hp = Player->getHp();
-    int player_dmg = Player->getAtk();
+Player* Variant::attack(Player* player) {
+    int player_hp = player->getHp();
+    int player_dmg = player->getAtk();
     int Variant_hp = this->get_totalHealth();
 
     //variant attacks player
     player_hp -= damage_+baseDamage+extraDamage_;
-    Player->setHp(player_hp);
+    player->setHp(player_hp);
 
     //variant attacks slime
     Variant_hp -= (player_dmg-def_);
     this->set_totalHealth(Variant_hp);
-    return Player;
+    return player;
 }
 
 

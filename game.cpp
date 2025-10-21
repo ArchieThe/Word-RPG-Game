@@ -36,7 +36,7 @@ Game::~Game(){
 void Game::run() {
     bool running = true;
 
-    while (running) {
+    while (running && player_.getHp() > 0) {
         switch (location_) {
         case Location::Plains:
             showPlainsMenu();
@@ -59,6 +59,7 @@ void Game::run() {
             std::cout << "\n";
         }
     }
+    std::cout << "The game has ended.\n";
 }
 
 
@@ -150,7 +151,6 @@ void Game::fightSlime() {
     if (player_.getHp() <= 0) {
         std::cout << "You collapse on the plains...\n";
         std::cout << "Game Over. Thanks for playing!\n";
-        // (Optionally end run, reload, or set HP to 1)
         return;
     } else if (slime.get_totalHealth() <= 0) {
         //reward for killing slime
@@ -239,7 +239,7 @@ bool Game::parseAndLoadLine(const std::string& line, const std::string& wantedNa
         int gold = std::stoi(goldStr);
 
         // Load into player
-        player.setMaxHp(max);      // set max first so clamping of HP works
+        player.setMaxHp(max);  // set max first so clamping of HP works
         player.setHp(hp);
         player.setAtk(atk);
         player.setDef(def);

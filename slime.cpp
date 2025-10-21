@@ -45,19 +45,19 @@ void Slime::set_totalHealth(int totalHealth) {
 //other methods
 
 //attack method where slime attacks player and player attacks slime
-Player* Slime::attack(Player* Player) {
-    int player_hp = Player->getHp();
-    int player_dmg = Player->getAtk();
+Player* Slime::attack(Player* player) {
+    int player_hp = player->getHp();
+    int player_dmg = player->getAtk();
     int slime_hp = this->get_totalHealth();
 
     //slime attacks player
     player_hp -= damage_+baseDamage;
-    Player->setHp(player_hp);
+    player->setHp(player_hp);
 
     //player attacks slime
     slime_hp -= player_dmg;
     this->set_totalHealth(slime_hp);
-    return Player;
+    return player;
 }
 
 
