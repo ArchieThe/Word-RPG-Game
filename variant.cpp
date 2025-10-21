@@ -93,7 +93,7 @@ Player* Variant::fight(Player* player){
         std::cout << this->get_name() << "'s HP: " << this->get_totalHealth() << "\n\n\n";
 
         // Optional short pause for readability
-        std::this_thread::sleep_for(std::chrono::milliseconds(4000));
+        std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 
         ++round;
     }

@@ -20,6 +20,8 @@ protected:
     Area* currentArea_ = nullptr;  
     Location location_ = Location::Plains;
     const std::string savePath_ = "savefile.txt";
+    Plains plainsArea_;
+    Tower towerArea_;
 
 public:
 //get player

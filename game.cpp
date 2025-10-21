@@ -95,7 +95,8 @@ void Game::handlePlainsChoice(int choice, bool& running) {
     case 2: fightSlime(); break;
     case 3:
         location_ = Location::Tower;
-        std::cout << "You travel to the Tower...\n";
+        std::cout << "\n\nYou travel to the Tower...\n";
+        std::cout << towerArea_.getDescription() << std::endl;
         break;
     case 4:
         appendOrUpdatePlayer(savePath_, player_);
@@ -111,7 +112,8 @@ void Game::handleTowerChoice(int choice, bool& running) {
     case 2: fightVariant(); break;
     case 3:
         location_ = Location::Plains;
-        std::cout << "You descend to the Plains...\n";
+        std::cout << "\n\nYou descend to the Plains...\n";
+        std::cout << plainsArea_.getDescription() << std::endl;
         break;
     case 4:
         appendOrUpdatePlayer(savePath_, player_);
