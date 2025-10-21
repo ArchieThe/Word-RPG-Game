@@ -12,25 +12,33 @@
 #include <iostream>
 #include <string>
 
+enum class Location { Plains, Tower };
+
 class Game {
 protected:
     Player player_;
-    const std::string savePath_ = "saveFile.txt";
+    Area* currentArea_ = nullptr;  
+    Location location_ = Location::Plains;
+    const std::string savePath_ = "savefile.txt";
 
 public:
 //get player
     Player& getPlayer() {return player_;}
 //mian game 
     Game();  // constructor to set up the player
-    void start(); // main game loop
-//fight stuff
+    ~Game();
+    void run(); // main game loop
+    
+//actions I guess
     void fightSlime(); // handle slime battle
     void fightVariant(); // handle tower guard battle
-//exploration stuff
+    void showStats() const;
+
+//exploration stuff 
     void showPlainsMenu() const;
+    void handlePlainsChoice(int choice, bool& running); // explore the plains area
     void showTowerMenu() const;
-    void handlePlainsChoice(int choice, bool& running);
-    void handleTowerChoice(int choice, bool& running);
+    void handleTowerChoice(int choice, bool& running); // explore the tower area
 
 //input helppppp
     int readMenuChoice(int minOpt, int maxOpt) const;

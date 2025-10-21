@@ -84,7 +84,7 @@ int main() {
 
     Tower towerArea;
     assert(towerArea.getName() == "Ancient Tower");
-    assert(towerArea.getDescription() == "A tall, crumbling tower that reaches into the sky, filled with ancient secrets.");
+    assert(towerArea.getDescription() == "The air is heavy and dust fills your lungs as you step inside the tower.");
     assert (towerArea.enter() == true);
     assert (towerArea.exit() == false);
 

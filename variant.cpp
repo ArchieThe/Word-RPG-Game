@@ -86,7 +86,7 @@ Player* Variant::fight(Player* player){
     {
         std::cout << "----- Round " << round << " -----\n";
 
-        // Slime attacks (this also reduces slime’s HP when player counter-attacks)
+        //Variant attacks (this also reduces Variant HP when player counter-attacks)
         this->attack(player);
 
         std::cout << player->getName() << "'s HP: " << player->getHp() << "\n";

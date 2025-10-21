@@ -16,4 +16,3 @@ bool Plains::exit(){
     return false;
 }
 
-

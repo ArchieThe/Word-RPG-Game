@@ -3,7 +3,7 @@
 
 Tower::Tower(){
     name = "Ancient Tower";
-    description = "A tall, crumbling tower that reaches into the sky, filled with ancient secrets.";
+    description = "The air is heavy and dust fills your lungs as you step inside the tower.";
 };
 bool Tower::enter(){
     std::cout << "You enter the " << name << ". " << description << std::endl;
