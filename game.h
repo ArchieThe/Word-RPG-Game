@@ -3,6 +3,12 @@
 
 #include "player.h"
 #include "slime.h"
+#include "tower.h"
+#include "areas.h"
+#include "plains.h"
+#include "variant.h"
+
+
 #include <iostream>
 #include <string>
 
