@@ -82,7 +82,7 @@ int main() {
     assert (plainsArea.enter() == true);
     assert (plainsArea.exit() == false);
 
-    tower towerArea;
+    Tower towerArea;
     assert(towerArea.getName() == "Ancient Tower");
     assert(towerArea.getDescription() == "A tall, crumbling tower that reaches into the sky, filled with ancient secrets.");
     assert (towerArea.enter() == true);

@@ -7,8 +7,8 @@
 class Plains : public Area{
 public:
     Plains();
-    bool enter();
-    bool exit();
+    bool enter() override;
+    bool exit() override;
 };
 
 #endif

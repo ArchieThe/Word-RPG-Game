@@ -3,11 +3,11 @@
 #include "iostream"
 #include "areas.h"
 
-class tower : public Area{
+class Tower : public Area{
 public:
-    tower();
-    bool enter();
-    bool exit();
+    Tower();
+    bool enter() override;
+    bool exit() override;
 };
 
 #endif

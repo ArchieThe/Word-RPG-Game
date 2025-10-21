@@ -30,10 +30,6 @@ Game::Game() {
 
 
 
-
-
-
-
 //load save file
 // returns true if it parsed a matching line and loaded into player
 bool Game::parseAndLoadLine(const std::string& line, const std::string& wantedName, Player& player) {
@@ -162,7 +158,7 @@ bool Game::loadGame(const std::string& filename, Player& player){
     }
 
 
-    
+
     //Append this new player with default stats if cannot find.
     file.close();
     if (appendOrUpdatePlayer(filename, player)){
