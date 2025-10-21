@@ -4,66 +4,75 @@
 #include <chrono>
 #include <thread>
 
-#include "slime.h"
+#include "variant.h"
+
 
 //constructor
-Slime::Slime(int health, int damage) {
-    this->name = "Slime";
+Variant::Variant(int extraHealth, int extraDamage, int def){
+    this->name = "Variant";
     this->baseHealth = 5;
     this->baseDamage = 1;
-    this->health_ = health;
-    this->damage_ = damage;
-    this->totalHealth_ = health_+baseHealth;
+    this->extraHealth_ = extraHealth;
+    this->extraDamage_ = extraDamage;
+    this->def_ = def;
+    this->health_ = 6;
+    this->damage_ = 2;
+    this->totalHealth_ = health_ + baseHealth + extraHealth_;
 }
-Slime::Slime():Slime(5,1){}
+Variant::Variant():Variant(5,2,1){}
+
 
 
 //getters
-int Slime::get_health() const {
-    return health_;
+int Variant::get_extraHealth() const {
+    return extraHealth_;
 }
-int Slime::get_damage() const {
-    return damage_;
+int Variant::get_extraDamage() const {
+    return extraDamage_;
 }
-int Slime::get_totalHealth() const {
-    return totalHealth_;
+int Variant::get_def() const {
+    return def_;
 }
+
 
 
 //setters
-void Slime::set_health(int health) {
-    this->health_ = health;
+void Variant::set_extraHealth(int extraHealth) {
+    this->extraHealth_ = extraHealth;  
+}
+void Variant::set_extraDamage(int extraDamage) {
+    this->extraDamage_ = extraDamage;
+}
+void Variant::set_def(int def) {
+    this->def_ = def;
 }   
-void Slime::set_damage(int damage) {
-    this->damage_ = damage;
-}
-void Slime::set_totalHealth(int totalHealth) {
-    this->totalHealth_ = totalHealth;
-}
+
 
 
 //other methods
 
-//attack method where slime attacks player and player attacks slime
-Player* Slime::attack(Player* Player) {
+
+//attack method where da variant attacks player and player attacks variant
+Player* Variant::attack(Player* Player) {
     int player_hp = Player->getHp();
     int player_dmg = Player->getAtk();
-    int slime_hp = this->get_totalHealth();
+    int Variant_hp = this->get_totalHealth();
 
-    //slime attacks player
-    player_hp -= damage_+baseDamage;
+    //variant attacks player
+    player_hp -= damage_+baseDamage+extraDamage_;
     Player->setHp(player_hp);
 
-    //player attacks slime
-    slime_hp -= player_dmg;
-    this->set_totalHealth(slime_hp);
+    //variant attacks slime
+    Variant_hp -= (player_dmg-def_);
+    this->set_totalHealth(Variant_hp);
     return Player;
 }
 
 
-//fight method where slime and player fight until one is dead
-Player* Slime::fight(Player* player)
-{
+
+//fight method where variant and player fight until one is dead
+Player* Variant::fight(Player* player){
+    {
     if (!player)
         return nullptr;
 
@@ -101,4 +110,5 @@ Player* Slime::fight(Player* player)
                   << this->get_name() << "!\n";
 
     return player;
+}
 }
