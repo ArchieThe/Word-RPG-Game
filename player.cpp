@@ -11,7 +11,8 @@ Player::Player(std::string name):
     max_hp_(20),
     atk_(4),
     def_(2),
-    gold_(0){}
+    gold_(0),
+    exp_(0){}
 
 //getters
 std::string Player::getName() const {return name_;}
@@ -20,6 +21,7 @@ int Player::getMaxHp() const {return max_hp_;}
 int Player::getAtk() const {return atk_;}
 int Player::getDef() const {return def_;}
 int Player::getGold() const {return gold_;}
+int Player::getExp() const {return exp_;}
 void Player::getStats() const {
     std::cout << "Player Stats:\n";
     std::cout << "Name: " << name_ << "\n";
@@ -27,6 +29,7 @@ void Player::getStats() const {
     std::cout << "ATK: " << atk_ << "\n";
     std::cout << "DEF: " << def_ << "\n";
     std::cout << "Gold: " << gold_ << "\n";
+    std::cout << "EXP: " << exp_ << "\n";
 }
 
 //setters 
@@ -36,3 +39,4 @@ void Player::setMaxHp(int max_hp) {max_hp_ = max_hp;}
 void Player::setAtk(int atk) {atk_ = atk;}
 void Player::setDef(int def) {def_ = def;}
 void Player::setGold(int gold) {gold_ = gold;}    
+void Player::setExp(int exp) {exp_ = exp;}

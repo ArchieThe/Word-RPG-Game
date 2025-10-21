@@ -9,11 +9,12 @@
 class Player {
 protected:
     std::string name_;
-    int hp_{20};
-    int max_hp_{20};
-    int atk_{4};
-    int def_{2};
-    int gold_{0};
+    int hp_;
+    int max_hp_;
+    int atk_;
+    int def_;
+    int gold_;
+    int exp_;
 public:
 // constructors
     Player();
@@ -26,6 +27,7 @@ public:
     int getDef() const;
     int getGold() const;
     void getStats() const;
+    int getExp() const;
 // setters
     void setName(const std::string& name);
     void setHp(int hp);
@@ -33,6 +35,7 @@ public:
     void setAtk(int atk);
     void setDef(int def);
     void setGold(int gold);
+    void setExp(int exp);
 
 };
 

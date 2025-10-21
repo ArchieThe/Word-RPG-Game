@@ -72,19 +72,19 @@ Player* Slime::fight(Player* player)
 
     int round = 1;
 
-    // Loop until either the player or the slime is dead
+    //Loop until either the player or the slime is dead
     while (player->getHp() > 0 && this->get_totalHealth() > 0)
     {
         std::cout << "----- Round " << round << " -----\n";
 
-        // Slime attacks (this also reduces slime’s HP when player counter-attacks)
+        //Slime attacks (this also reduces slime’s HP when player counter-attacks)
         this->attack(player);
 
         std::cout << player->getName() << "'s HP: " << player->getHp() << "\n";
         std::cout << this->get_name() << "'s HP: " << this->get_totalHealth() << "\n\n\n";
 
-        // Optional short pause for readability
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        //short pause for readability
+        std::this_thread::sleep_for(std::chrono::milliseconds(4000));
 
         ++round;
     }

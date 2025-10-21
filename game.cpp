@@ -8,14 +8,14 @@
 #include <string>
 #include <vector>
 
-// Constructor to set up the player
+//Constructor to set up the player
 Game::Game(){
     std::string player_name;
     std::cout << "Enter your player's name: ";
     std::getline(std::cin, player_name);
     player_= Player(player_name);
 
-    // Attempt to load existing game
+    //Attempt to load existing game
     loadGame("savefile.txt", player_);
 
     std::cout << "Game loaded successfully.\n";
@@ -55,7 +55,7 @@ void Game::run() {
         }
 
         if (running) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(120));
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             std::cout << "\n";
         }
     }
@@ -134,20 +134,21 @@ void Game::showStats() const {
               << "HP:   " << player_.getHp() << "/" << player_.getMaxHp() << "\n"
               << "ATK:  " << player_.getAtk() << "\n"
               << "DEF:  " << player_.getDef() << "\n"
-              << "GOLD: " << player_.getGold() << "\n\n";
+              << "GOLD: " << player_.getGold() << "\n"
+              << "EXP:  " << player_.getExp() << "\n\n";
 }
 
 void Game::fightSlime() {
-    // Create a fresh slime for each battle
+    //Create a fresh slime for each battle
     Slime slime;
 
-    // Ensure slime has full health at battle start if it’s stateful across uses
+    //Ensure slime has full health at battle start if it’s stateful across uses
     slime.set_totalHealth(8);
 
-    // Run battle
+    //Run battle
     slime.fight(&player_);
 
-    // After battle outcome
+    //After battle outcome
     if (player_.getHp() <= 0) {
         std::cout << "You collapse on the plains...\n";
         std::cout << "Game Over. Thanks for playing!\n";
@@ -157,13 +158,24 @@ void Game::fightSlime() {
         int gold = 2;
         player_.setGold(player_.getGold() + gold);
         std::cout << "You loot " << gold << " gold from the slime.\n";
+        int exp = 3;
+        player_.setExp(player_.getExp() + exp);
+        std::cout << "You gain " << exp << " experience points.\n";
+        //level up check
+        if(player_.getExp() >= 10){
+            player_.setExp(player_.getExp() - 10);
+            player_.setMaxHp(player_.getMaxHp() + 3);
+            player_.setHp(player_.getMaxHp()); //heal to new max hp
+            player_.setAtk(player_.getAtk() + 1);
+            player_.setDef(player_.getDef() + 1);
+            std::cout << "You leveled up! Max HP, ATK, and DEF increased!\n";
+        }
     }
 }
 
 void Game::fightVariant() {
-    Variant variant; // likewise, pass any needed constructor args
+    Variant variant; //make a new variant for each fight
 
-    // variant.set_totalHealth(variant_base_hp); // if needed
 
     variant.fight(&player_);
 
@@ -178,6 +190,19 @@ void Game::fightVariant() {
         int gold = 5;
         player_.setGold(player_.getGold() + gold);
         std::cout << "You claim " << gold << " gold from the variant.\n";
+        int exp = 5;
+        player_.setExp(player_.getExp() + exp);
+        std::cout << "You gain " << exp << " experience points.\n";
+        //level up check
+            if(player_.getExp() >= 10){
+            player_.setExp(player_.getExp() - 10);
+            player_.setMaxHp(player_.getMaxHp() + 3);
+            player_.setHp(player_.getMaxHp()); //heal to new max hp
+            player_.setAtk(player_.getAtk() + 1);
+            player_.setDef(player_.getDef() + 1);
+            std::cout << "You leveled up woooo so amazing! Max HP, ATK, and DEF increased!\n";
+        }
+        
     }
 }
 
@@ -210,7 +235,7 @@ int Game::readMenuChoice(int minOpt, int maxOpt) const {
 
 
 //load save file
-// returns true if it parsed a matching line and loaded into player
+//returns true if it parsed a matching line and loaded into player
 bool Game::parseAndLoadLine(const std::string& line, const std::string& wantedName, Player& player) {
     // Split into "name" and "stats"
     auto commaPos = line.find(',');
@@ -221,15 +246,16 @@ bool Game::parseAndLoadLine(const std::string& line, const std::string& wantedNa
 
     if (name != wantedName) return false;
 
-    // stats is "hp:max:atk:def:gold"
+    //stats is "hp:max:atk:def:gold:exp"
     std::istringstream iss(stats);
-    std::string hpStr, maxStr, atkStr, defStr, goldStr;
+    std::string hpStr, maxStr, atkStr, defStr, goldStr, expStr;
 
     if (!std::getline(iss, hpStr, ':'))  return false;
     if (!std::getline(iss, maxStr, ':')) return false;
     if (!std::getline(iss, atkStr, ':')) return false;
     if (!std::getline(iss, defStr, ':')) return false;
-    if (!std::getline(iss, goldStr))     return false;
+    if (!std::getline(iss, goldStr, ':')) return false;
+    if (!std::getline(iss, expStr))     return false;
 
     try {
         int hp   = std::stoi(hpStr);
@@ -237,22 +263,25 @@ bool Game::parseAndLoadLine(const std::string& line, const std::string& wantedNa
         int atk  = std::stoi(atkStr);
         int def  = std::stoi(defStr);
         int gold = std::stoi(goldStr);
+        int exp  = std::stoi(expStr);
 
-        // Load into player
-        player.setMaxHp(max);  // set max first so clamping of HP works
+        //Load into player
+        player.setMaxHp(max);  //set max first so clamping of HP works
         player.setHp(hp);
         player.setAtk(atk);
         player.setDef(def);
         player.setGold(gold);
+        player.setExp(exp);
         return true;
-    } catch (...) {
-        return false; // malformed numbers
+    } catch (const std::exception& e) {
+        std::cerr << "Error parsing player stats: " << e.what() << "\n";
+        return false; //malformed numbers
     }
 }
 
 
 
-// Create the file and write the current player as the first entry
+//Create the file and write the current player as the first entry
 bool Game::createSaveFileWithPlayer(const std::string& filename, const Player& player){
     std::ofstream out(filename);
     if (!out) return false;
@@ -261,13 +290,14 @@ bool Game::createSaveFileWithPlayer(const std::string& filename, const Player& p
         << player.getMaxHp()<< ":"
         << player.getAtk()  << ":"
         << player.getDef()  << ":"
-        << player.getGold() << "\n";
+        << player.getGold() << ":"
+        << player.getExp()  << "\n";
     return true;
 }
 
 
 
-// Overwrite or append helpers (optional)
+//Overwrite or append helpers (optional)
 bool Game::appendOrUpdatePlayer(const std::string& filename, const Player& player){
     //read all, replace line for this name if found and if not append
     std::ifstream in(filename);
@@ -285,7 +315,9 @@ bool Game::appendOrUpdatePlayer(const std::string& filename, const Player& playe
                     << player.getMaxHp()<< ":"
                     << player.getAtk()  << ":"
                     << player.getDef()  << ":"
-                    << player.getGold();
+                    << player.getGold() << ":"
+                    << player.getExp();
+
                 lines.push_back(oss.str());
                 replaced = true;
             } else {
@@ -302,7 +334,8 @@ bool Game::appendOrUpdatePlayer(const std::string& filename, const Player& playe
             << player.getMaxHp()<< ":"
             << player.getAtk()  << ":"
             << player.getDef()  << ":"
-            << player.getGold();
+            << player.getGold() << ":"
+            << player.getExp();
         lines.push_back(oss.str());
     }
 
