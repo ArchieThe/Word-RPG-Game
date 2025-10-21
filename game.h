@@ -15,6 +15,7 @@
 class Game {
 protected:
     Player player_;
+    const std::string savePath_ = "saveFile.txt";
 
 public:
 //get player
@@ -26,8 +27,13 @@ public:
     void fightSlime(); // handle slime battle
     void fightVariant(); // handle tower guard battle
 //exploration stuff
-    void explorePlains(int choice); // handle plains exploration
-    void exploreTower(int choice); // handle tower exploration
+    void showPlainsMenu() const;
+    void showTowerMenu() const;
+    void handlePlainsChoice(int choice, bool& running);
+    void handleTowerChoice(int choice, bool& running);
+
+//input helppppp
+    int readMenuChoice(int minOpt, int maxOpt) const;
 
 //reader and safeFile writer.
     bool loadGame(const std::string& filename, Player& player); // load game state from file

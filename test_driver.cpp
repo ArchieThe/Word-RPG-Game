@@ -94,9 +94,9 @@ int main() {
     assert(game.getPlayer().getName() == "Bobby");
     assert(game.getPlayer().getAtk() == 100);
 
-    game.getPlayer().setAtk(25);
+    game.getPlayer().setAtk(45);
     game.getPlayer().setName("Holo");
-    assert(game.getPlayer().getAtk() == 25);
+    assert(game.getPlayer().getAtk() == 45);
     game.appendOrUpdatePlayer("savefile.txt", game.getPlayer());
 
     std::cout << "All tests passed!\n";

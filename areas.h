@@ -8,20 +8,17 @@ protected:
     std::string description;
 
 public:
-    virtual bool enter() = 0; // Pure virtual function
-    virtual bool exit() = 0;// Default implementation
+    virtual ~Area() = default;
+    virtual bool enter() = 0; // enter
+    virtual bool exit() = 0;// exit
 
     // Getters
     std::string getName() const;
     std::string getDescription() const;
 
     // Setters
-    void setName(const std::string& name) {
-        this->name = name;
-    }
-    void setDescription(const std::string& description) {
-        this->description = description;
-    }
+    void setName(const std::string& name);
+    void setDescription(const std::string& description);
 };
 
 

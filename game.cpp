@@ -29,6 +29,11 @@ Game::Game() {
 
 
 
+
+
+
+
+
 //load save file
 // returns true if it parsed a matching line and loaded into player
 bool Game::parseAndLoadLine(const std::string& line, const std::string& wantedName, Player& player) {
@@ -70,6 +75,8 @@ bool Game::parseAndLoadLine(const std::string& line, const std::string& wantedNa
     }
 }
 
+
+
 // Create the file and write the current player as the first entry
 bool Game::createSaveFileWithPlayer(const std::string& filename, const Player& player){
     std::ofstream out(filename);
@@ -83,16 +90,18 @@ bool Game::createSaveFileWithPlayer(const std::string& filename, const Player& p
     return true;
 }
 
+
+
 // Overwrite or append helpers (optional)
 bool Game::appendOrUpdatePlayer(const std::string& filename, const Player& player){
-    //read all, replace line for this name if found, else append; then rewrite file.
+    //read all, replace line for this name if found and if not append
     std::ifstream in(filename);
     std::vector<std::string> lines;
     bool replaced = false;
 
-    if (in) {
+    if (in){
         std::string line;
-        while (std::getline(in, line)) {
+        while (std::getline(in, line)){
             auto commaPos = line.find(',');
             if (commaPos != std::string::npos && line.substr(0, commaPos) == player.getName()){
                 std::ostringstream oss;
@@ -129,7 +138,8 @@ bool Game::appendOrUpdatePlayer(const std::string& filename, const Player& playe
 }
 
 
-// loadGame: creates file if missing; if exists, loads stats for matching name
+
+//creates file if missing; if exists and loads stats for matching name
 bool Game::loadGame(const std::string& filename, Player& player){
     std::ifstream file(filename);
 
@@ -152,9 +162,10 @@ bool Game::loadGame(const std::string& filename, Player& player){
     }
 
 
-    // Not found? Append this new player with default stats.
+    
+    //Append this new player with default stats if cannot find.
     file.close();
-    if (appendOrUpdatePlayer(filename, player)) {
+    if (appendOrUpdatePlayer(filename, player)){
         std::cout << "No existing save for " << player.getName()
                   << ". Added a new entry.\n";
         return true;
