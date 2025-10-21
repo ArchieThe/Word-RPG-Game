@@ -89,7 +89,7 @@ Player* Slime::fight(Player* player)
         ++round;
     }
 
-    // Determine the outcome
+    //Determine the outcome
     if (player->getHp() <= 0 && this->get_totalHealth() <= 0)
         std::cout << "It's a draw! Both " << player->getName()
                   << " and " << this->get_name() << " have fallen!\n";

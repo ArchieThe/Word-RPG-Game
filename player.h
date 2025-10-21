@@ -16,10 +16,10 @@ protected:
     int gold_;
     int exp_;
 public:
-// constructors
+//constructors
     Player();
     Player(std::string name);
-// getters
+//getters
     std::string getName() const;
     int getHp() const;
     int getMaxHp() const;
@@ -28,7 +28,7 @@ public:
     int getGold() const;
     void getStats() const;
     int getExp() const;
-// setters
+//setters
     void setName(const std::string& name);
     void setHp(int hp);
     void setMaxHp(int max_hp);
