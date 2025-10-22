@@ -1,10 +1,10 @@
 #include "player.h" 
 #include <utility>
 
-// Default constructor
-Player::Player():Player("Default"){};
+//Default constructor
+Player::Player():Player("Default"){}
 
-// Parameterized constructor
+//Parameterized constructor
 Player::Player(std::string name): 
     name_(std::move(name)),
     hp_(20),
